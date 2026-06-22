@@ -50,8 +50,26 @@ public class QuantityMeasurementApp {
          * Execution logic for Quantity.
          */
         public Quantity(double value, LengthUnit unit) {
+            if (!Double.isFinite(value)) {
+                throw new IllegalArgumentException("Value must be a finite number");
+            }
+            if (unit == null) {
+                throw new IllegalArgumentException("Unit cannot be null");
+            }
             this.value = value;
             this.unit = unit;
+        }
+
+        /**
+         * Execution logic for convertTo.
+         */
+        public double convertTo(LengthUnit targetUnit) {
+            if (targetUnit == null) {
+                throw new IllegalArgumentException("Target unit cannot be null");
+            }
+            double baseValue = this.unit.toBaseUnit(this.value);
+            double convertedValue = baseValue / targetUnit.baseUnitConversionFactor;
+            return Math.round(convertedValue * 1000.0) / 1000.0;
         }
 
         /**
