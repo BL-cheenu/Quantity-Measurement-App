@@ -41,11 +41,19 @@ public class Quantity<U extends IMeasurable> {
         return Math.round(convertedValue * 1000.0) / 1000.0;
     }
 
+    /**
+     * Represents ArithmeticOperation.
+     */
     private enum ArithmeticOperation {
         ADD, SUBTRACT, DIVIDE
     }
 
+    /**
+     * Execution logic for performOperation.
+     */
     private double performOperation(Quantity<U> other, ArithmeticOperation operation) {
+        this.unit.validateOperationSupport(operation.name().toLowerCase());
+        
         if (operation == ArithmeticOperation.DIVIDE && other.value == 0.0) {
             throw new IllegalArgumentException("Cannot divide by zero quantity.");
         }
@@ -64,6 +72,9 @@ public class Quantity<U extends IMeasurable> {
         }
     }
 
+    /**
+     * Execution logic for add.
+     */
     public Quantity<U> add(Quantity<U> other, U targetUnit) {
         if (other == null) {
             throw new IllegalArgumentException("Quantity to add cannot be null");
@@ -76,26 +87,6 @@ public class Quantity<U extends IMeasurable> {
         // Rounding to 3 decimal places to avoid floating point precision issues
         resultInTargetUnit = Math.round(resultInTargetUnit * 1000.0) / 1000.0;
         return new Quantity<>(resultInTargetUnit, targetUnit);
-    }
-
-    public Quantity<U> add(Quantity<U> other) {
-        return add(other, this.unit);
-    }
-
-    public Quantity<U> subtract(Quantity<U> other, U targetUnit) {
-        double resultBaseValue = performOperation(other, ArithmeticOperation.SUBTRACT);
-        double resultInTargetUnit = targetUnit.convertFromBaseUnit(resultBaseValue);
-        // Rounding to 3 decimal places to avoid floating point precision issues
-        resultInTargetUnit = Math.round(resultInTargetUnit * 1000.0) / 1000.0;
-        return new Quantity<>(resultInTargetUnit, targetUnit);
-    }
-
-    public Quantity<U> subtract(Quantity<U> other) {
-        return subtract(other, this.unit);
-    }
-
-    public double divide(Quantity<U> other) {
-        return performOperation(other, ArithmeticOperation.DIVIDE);
     }
 
     /**
