@@ -79,9 +79,6 @@ public class QuantityMeasurementApp {
             return this.add(other, this.unit);
         }
 
-        /**
-         * Execution logic for add.
-         */
         public Quantity add(Quantity other, LengthUnit targetUnit) {
             if (other == null) {
                 throw new IllegalArgumentException("Quantity to add cannot be null");
