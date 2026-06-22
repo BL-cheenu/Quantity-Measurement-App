@@ -2,22 +2,10 @@ package quantitymeasurement;
 
 import java.util.Objects;
 
-/**
- * Represents Quantity.
- */
 public class Quantity {
-    /**
-     * Property value.
-     */
     private final double value;
-    /**
-     * Property unit.
-     */
     private final LengthUnit unit;
 
-    /**
-     * Execution logic for Quantity.
-     */
     public Quantity(double value, LengthUnit unit) {
         if (!Double.isFinite(value)) {
             throw new IllegalArgumentException("Value must be a finite number");
@@ -29,9 +17,6 @@ public class Quantity {
         this.unit = unit;
     }
 
-    /**
-     * Execution logic for convertTo.
-     */
     public double convertTo(LengthUnit targetUnit) {
         if (targetUnit == null) {
             throw new IllegalArgumentException("Target unit cannot be null");
@@ -41,16 +26,10 @@ public class Quantity {
         return Math.round(convertedValue * 1000.0) / 1000.0;
     }
 
-    /**
-     * Execution logic for add.
-     */
     public Quantity add(Quantity other) {
         return this.add(other, this.unit);
     }
 
-    /**
-     * Execution logic for add.
-     */
     public Quantity add(Quantity other, LengthUnit targetUnit) {
         if (other == null) {
             throw new IllegalArgumentException("Quantity to add cannot be null");
@@ -64,9 +43,6 @@ public class Quantity {
         return new Quantity(Math.round(sumValue * 1000.0) / 1000.0, targetUnit);
     }
 
-    /**
-     * Execution logic for equals.
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -77,17 +53,11 @@ public class Quantity {
         return Double.compare(value1, value2) == 0;
     }
 
-    /**
-     * Execution logic for hashCode.
-     */
     @Override
     public int hashCode() {
         return Objects.hash(unit.convertToBaseUnit(value));
     }
 
-    /**
-     * Execution logic for toString.
-     */
     @Override
     public String toString() {
         return "Quantity(" + value + ", \"" + unit.name().toLowerCase() + "\")";
