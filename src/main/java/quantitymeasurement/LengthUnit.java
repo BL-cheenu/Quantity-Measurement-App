@@ -1,8 +1,5 @@
 package quantitymeasurement;
 
-/**
- * Represents LengthUnit.
- */
 public enum LengthUnit implements Unit {
     FEET(12.0),
     INCHES(1.0),

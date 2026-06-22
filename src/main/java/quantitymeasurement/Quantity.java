@@ -10,14 +10,8 @@ public class Quantity {
      * Property value.
      */
     private final double value;
-    /**
-     * Property unit.
-     */
     private final Unit unit;
 
-    /**
-     * Execution logic for Quantity.
-     */
     public Quantity(double value, Unit unit) {
         if (!Double.isFinite(value)) {
             throw new IllegalArgumentException("Value must be a finite number");
@@ -29,9 +23,6 @@ public class Quantity {
         this.unit = unit;
     }
 
-    /**
-     * Execution logic for convertTo.
-     */
     public double convertTo(Unit targetUnit) {
         if (targetUnit == null) {
             throw new IllegalArgumentException("Target unit cannot be null");
@@ -51,9 +42,6 @@ public class Quantity {
         return this.add(other, this.unit);
     }
 
-    /**
-     * Execution logic for add.
-     */
     public Quantity add(Quantity other, Unit targetUnit) {
         if (other == null) {
             throw new IllegalArgumentException("Quantity to add cannot be null");
