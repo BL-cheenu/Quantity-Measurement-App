@@ -60,6 +60,9 @@ public class QuantityMeasurementApp {
             this.unit = unit;
         }
 
+        /**
+         * Execution logic for convertTo.
+         */
         public double convertTo(LengthUnit targetUnit) {
             if (targetUnit == null) {
                 throw new IllegalArgumentException("Target unit cannot be null");
@@ -69,6 +72,21 @@ public class QuantityMeasurementApp {
             return Math.round(convertedValue * 1000.0) / 1000.0;
         }
 
+        /**
+         * Execution logic for add.
+         */
+        public Quantity add(Quantity other) {
+            if (other == null) {
+                throw new IllegalArgumentException("Quantity to add cannot be null");
+            }
+            double otherConvertedValue = other.convertTo(this.unit);
+            double sumValue = this.value + otherConvertedValue;
+            return new Quantity(Math.round(sumValue * 1000.0) / 1000.0, this.unit);
+        }
+
+        /**
+         * Execution logic for equals.
+         */
         @Override
         public boolean equals(Object obj) {
             if (this == obj) return true;
