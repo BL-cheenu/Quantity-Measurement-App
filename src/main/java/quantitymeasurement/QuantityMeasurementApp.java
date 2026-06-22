@@ -7,46 +7,77 @@ import java.util.Objects;
  */
 public class QuantityMeasurementApp {
 
+    /**
+     * Represents LengthUnit.
+     */
     public enum LengthUnit {
         FEET(12.0),
-        INCHES(1.0);
+        INCHES(1.0),
+        YARD(36.0),
+        CM(1.0 / 2.54);
 
+        /**
+         * Property baseUnitConversionFactor.
+         */
         private final double baseUnitConversionFactor;
 
         LengthUnit(double baseUnitConversionFactor) {
             this.baseUnitConversionFactor = baseUnitConversionFactor;
         }
 
+        /**
+         * Execution logic for toBaseUnit.
+         */
         public double toBaseUnit(double value) {
             return value * this.baseUnitConversionFactor;
         }
     }
 
+    /**
+     * Represents Quantity.
+     */
     public static class Quantity {
+        /**
+         * Property value.
+         */
         private final double value;
+        /**
+         * Property unit.
+         */
         private final LengthUnit unit;
 
+        /**
+         * Execution logic for Quantity.
+         */
         public Quantity(double value, LengthUnit unit) {
             this.value = value;
             this.unit = unit;
         }
 
+        /**
+         * Execution logic for equals.
+         */
         @Override
         public boolean equals(Object obj) {
             if (this == obj) return true;
             if (obj == null || getClass() != obj.getClass()) return false;
             Quantity quantity = (Quantity) obj;
-            return Double.compare(
-                quantity.unit.toBaseUnit(quantity.value),
-                this.unit.toBaseUnit(this.value)
-            ) == 0;
+            double value1 = Math.round(quantity.unit.toBaseUnit(quantity.value) * 1000.0) / 1000.0;
+            double value2 = Math.round(this.unit.toBaseUnit(this.value) * 1000.0) / 1000.0;
+            return Double.compare(value1, value2) == 0;
         }
 
+        /**
+         * Execution logic for hashCode.
+         */
         @Override
         public int hashCode() {
             return Objects.hash(unit.toBaseUnit(value));
         }
 
+        /**
+         * Execution logic for toString.
+         */
         @Override
         public String toString() {
             return "Quantity(" + value + ", \"" + unit.name().toLowerCase() + "\")";
