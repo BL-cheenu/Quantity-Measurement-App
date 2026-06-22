@@ -7,14 +7,8 @@ import quantitymeasurement.repository.QuantityMeasurementCacheRepository;
 import quantitymeasurement.service.IQuantityMeasurementService;
 import quantitymeasurement.service.QuantityMeasurementServiceImpl;
 
-/**
- * Represents QuantityMeasurementApp.
- */
 public class QuantityMeasurementApp {
 
-    /**
-     * Execution logic for main.
-     */
     public static void main(String[] args) {
         System.out.println("Welcome to Quantity Measurement App (N-Tier Architecture)!");
 

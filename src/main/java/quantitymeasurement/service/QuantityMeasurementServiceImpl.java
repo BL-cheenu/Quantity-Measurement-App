@@ -11,25 +11,13 @@ import quantitymeasurement.entity.QuantityMeasurementEntity;
 import quantitymeasurement.entity.QuantityModel;
 import quantitymeasurement.repository.IQuantityMeasurementRepository;
 
-/**
- * Represents QuantityMeasurementServiceImpl.
- */
 public class QuantityMeasurementServiceImpl implements IQuantityMeasurementService {
-    /**
-     * Property repository.
-     */
     private final IQuantityMeasurementRepository repository;
 
-    /**
-     * Execution logic for QuantityMeasurementServiceImpl.
-     */
     public QuantityMeasurementServiceImpl(IQuantityMeasurementRepository repository) {
         this.repository = repository;
     }
 
-    /**
-     * Execution logic for getDomainUnit.
-     */
     @SuppressWarnings("unchecked")
     private <U extends IMeasurable> U getDomainUnit(QuantityDTO.IMeasurableUnit dtoUnit) {
         if (dtoUnit == null) return null;
@@ -46,17 +34,11 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
         throw new IllegalArgumentException("Unknown unit: " + name);
     }
 
-    /**
-     * Execution logic for createModel.
-     */
     private <U extends IMeasurable> QuantityModel<U> createModel(QuantityDTO dto) {
         U domainUnit = getDomainUnit(dto.getUnit());
         return new QuantityModel<>(new Quantity<>(dto.getValue(), domainUnit));
     }
 
-    /**
-     * Execution logic for compare.
-     */
     @Override
     public QuantityMeasurementEntity compare(QuantityDTO q1, QuantityDTO q2) {
         try {
@@ -81,9 +63,6 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
         }
     }
 
-    /**
-     * Execution logic for convert.
-     */
     @Override
     @SuppressWarnings("unchecked")
     public QuantityMeasurementEntity convert(QuantityDTO q1, QuantityDTO.IMeasurableUnit targetUnit) {
@@ -102,9 +81,6 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
         }
     }
 
-    /**
-     * Execution logic for add.
-     */
     @Override
     @SuppressWarnings("unchecked")
     public QuantityMeasurementEntity add(QuantityDTO q1, QuantityDTO q2, QuantityDTO.IMeasurableUnit targetUnit) {
@@ -124,9 +100,6 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
         }
     }
 
-    /**
-     * Execution logic for subtract.
-     */
     @Override
     @SuppressWarnings("unchecked")
     public QuantityMeasurementEntity subtract(QuantityDTO q1, QuantityDTO q2, QuantityDTO.IMeasurableUnit targetUnit) {
@@ -146,9 +119,6 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
         }
     }
 
-    /**
-     * Execution logic for divide.
-     */
     @Override
     @SuppressWarnings("unchecked")
     public QuantityMeasurementEntity divide(QuantityDTO q1, QuantityDTO q2) {

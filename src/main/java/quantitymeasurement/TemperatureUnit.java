@@ -68,17 +68,11 @@ public enum TemperatureUnit implements IMeasurable {
         }
     }
 
-    /**
-     * Execution logic for getMeasurementType.
-     */
     @Override
     public String getMeasurementType() {
         return "Temperature";
     }
 
-    /**
-     * Execution logic for getUnitInstance.
-     */
     @Override
     public IMeasurable getUnitInstance(String unitName) {
         for (TemperatureUnit unit : TemperatureUnit.values()) {

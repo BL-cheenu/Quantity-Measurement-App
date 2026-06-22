@@ -50,17 +50,11 @@ public enum LengthUnit implements IMeasurable {
         return this.name().toLowerCase();
     }
 
-    /**
-     * Execution logic for getMeasurementType.
-     */
     @Override
     public String getMeasurementType() {
         return "Length";
     }
 
-    /**
-     * Execution logic for getUnitInstance.
-     */
     @Override
     public IMeasurable getUnitInstance(String unitName) {
         for (LengthUnit unit : LengthUnit.values()) {

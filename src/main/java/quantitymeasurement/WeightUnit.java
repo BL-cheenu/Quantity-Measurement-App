@@ -49,17 +49,11 @@ public enum WeightUnit implements IMeasurable {
         return this.name().toLowerCase();
     }
 
-    /**
-     * Execution logic for getMeasurementType.
-     */
     @Override
     public String getMeasurementType() {
         return "Weight";
     }
 
-    /**
-     * Execution logic for getUnitInstance.
-     */
     @Override
     public IMeasurable getUnitInstance(String unitName) {
         for (WeightUnit unit : WeightUnit.values()) {

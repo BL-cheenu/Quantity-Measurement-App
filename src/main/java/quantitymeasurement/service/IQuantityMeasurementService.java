@@ -3,9 +3,6 @@ package quantitymeasurement.service;
 import quantitymeasurement.entity.QuantityDTO;
 import quantitymeasurement.entity.QuantityMeasurementEntity;
 
-/**
- * Represents IQuantityMeasurementService.
- */
 public interface IQuantityMeasurementService {
     QuantityMeasurementEntity compare(QuantityDTO q1, QuantityDTO q2);
     QuantityMeasurementEntity convert(QuantityDTO q1, QuantityDTO.IMeasurableUnit targetUnit);

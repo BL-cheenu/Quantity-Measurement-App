@@ -1,9 +1,12 @@
-# UC15: N-Tier Architecture Refactoring
-
-## Overview
-This branch (`feature/uc15-ntier-architecture`) focuses entirely on refactoring the monolithic codebase into a professional, scalable, and decoupled N-Tier architecture pattern.
-
-## Features Implemented in UC15
+  - `VolumeUnit` implements `IMeasurable` and supports `LITRE`, `MILLILITRE`, and `GALLON`.
+  - `TemperatureUnit` implements `IMeasurable` and supports `CELSIUS` and `FAHRENHEIT`.
+- **Compile-Time Category Safety**: The `Quantity<U>` class is strictly parameterized. Attempts to mix categories (e.g. `LengthUnit` + `VolumeUnit`) will fail to compile. This replaces error-prone runtime checks.
+- **Centralized & Validated Arithmetic Operations (DRY)**: 
+  - `add(...)`, `subtract(...)`, `divide(...)`: Generic arithmetic methods wrapping `performOperation`.
+  - Under the hood, these methods delegate to a private helper `performOperation`, which validates whether the `IMeasurable` category supports arithmetic (via `validateOperationSupport`).
+  - Attempts to perform arithmetic on Temperature objects safely fail with an `UnsupportedOperationException`.
+- **Robust Validation**: Rejects invalid states like `null` units, `NaN` values, and `Infinite` values via `IllegalArgumentException`. Division by zero explicitly throws an exception.
+- **Comprehensive Testing**: JUnit 5 tests utilizing generic parameters to verify equality, conversions, arithmetic, unsupported constraints, and isolated category tests for Length, Weight, Volume, and Temperature.
 
 1. **Controller Layer (`QuantityMeasurementController.java`)**: 
    - Acts as the presentation entry-point.
