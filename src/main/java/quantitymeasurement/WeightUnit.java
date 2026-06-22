@@ -48,4 +48,25 @@ public enum WeightUnit implements IMeasurable {
     public String getUnitName() {
         return this.name().toLowerCase();
     }
+
+    /**
+     * Execution logic for getMeasurementType.
+     */
+    @Override
+    public String getMeasurementType() {
+        return "Weight";
+    }
+
+    /**
+     * Execution logic for getUnitInstance.
+     */
+    @Override
+    public IMeasurable getUnitInstance(String unitName) {
+        for (WeightUnit unit : WeightUnit.values()) {
+            if (unit.name().equalsIgnoreCase(unitName) || unit.getUnitName().equalsIgnoreCase(unitName)) {
+                return unit;
+            }
+        }
+        return null;
+    }
 }
