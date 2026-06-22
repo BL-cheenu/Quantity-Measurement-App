@@ -1,8 +1,5 @@
 package quantitymeasurement;
 
-/**
- * Represents WeightUnit.
- */
 public enum WeightUnit implements IMeasurable {
     KILOGRAM(1.0),
     GRAM(0.001),
@@ -29,6 +26,11 @@ public enum WeightUnit implements IMeasurable {
      * Execution logic for convertToBaseUnit.
      */
     @Override
+    public double getConversionFactor() {
+        return this.baseUnitConversionFactor;
+    }
+
+    @Override
     public double convertToBaseUnit(double value) {
         return value * this.baseUnitConversionFactor;
     }
@@ -41,9 +43,6 @@ public enum WeightUnit implements IMeasurable {
         return baseValue / this.baseUnitConversionFactor;
     }
 
-    /**
-     * Execution logic for getUnitName.
-     */
     @Override
     public String getUnitName() {
         return this.name().toLowerCase();

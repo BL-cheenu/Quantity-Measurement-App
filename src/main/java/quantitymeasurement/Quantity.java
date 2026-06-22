@@ -2,22 +2,10 @@ package quantitymeasurement;
 
 import java.util.Objects;
 
-/**
- * Represents Quantity.
- */
 public class Quantity<U extends IMeasurable> {
-    /**
-     * Property value.
-     */
     private final double value;
-    /**
-     * Property unit.
-     */
     private final U unit;
 
-    /**
-     * Execution logic for Quantity.
-     */
     public Quantity(double value, U unit) {
         if (!Double.isFinite(value)) {
             throw new IllegalArgumentException("Value must be a finite number");
@@ -29,9 +17,6 @@ public class Quantity<U extends IMeasurable> {
         this.unit = unit;
     }
 
-    /**
-     * Execution logic for convertTo.
-     */
     public double convertTo(U targetUnit) {
         if (targetUnit == null) {
             throw new IllegalArgumentException("Target unit cannot be null");
@@ -41,16 +26,10 @@ public class Quantity<U extends IMeasurable> {
         return Math.round(convertedValue * 1000.0) / 1000.0;
     }
 
-    /**
-     * Execution logic for add.
-     */
     public Quantity<U> add(Quantity<U> other) {
         return this.add(other, this.unit);
     }
 
-    /**
-     * Execution logic for add.
-     */
     public Quantity<U> add(Quantity<U> other, U targetUnit) {
         if (other == null) {
             throw new IllegalArgumentException("Quantity to add cannot be null");

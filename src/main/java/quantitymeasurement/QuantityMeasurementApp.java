@@ -5,24 +5,15 @@ package quantitymeasurement;
  */
 public class QuantityMeasurementApp {
 
-    /**
-     * Execution logic for demonstrateEquality.
-     */
     public static <U extends IMeasurable> void demonstrateEquality(Quantity<U> q1, Quantity<U> q2) {
         System.out.println(q1 + " equals " + q2 + ": " + q1.equals(q2));
     }
 
-    /**
-     * Execution logic for demonstrateAddition.
-     */
     public static <U extends IMeasurable> void demonstrateAddition(Quantity<U> q1, Quantity<U> q2, U targetUnit) {
         Quantity<U> sum = q1.add(q2, targetUnit);
         System.out.println(q1 + " + " + q2 + " to " + targetUnit.getUnitName() + " = " + sum);
     }
 
-    /**
-     * Execution logic for main.
-     */
     public static void main(String[] args) {
         System.out.println("Welcome to Quantity Measurement App!");
         
