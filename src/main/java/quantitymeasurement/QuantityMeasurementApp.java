@@ -7,54 +7,30 @@ import java.util.Objects;
  */
 public class QuantityMeasurementApp {
 
-    /**
-     * Represents LengthUnit.
-     */
     public enum LengthUnit {
         FEET(12.0),
         INCHES(1.0);
 
-        /**
-         * Property baseUnitConversionFactor.
-         */
         private final double baseUnitConversionFactor;
 
         LengthUnit(double baseUnitConversionFactor) {
             this.baseUnitConversionFactor = baseUnitConversionFactor;
         }
 
-        /**
-         * Execution logic for toBaseUnit.
-         */
         public double toBaseUnit(double value) {
             return value * this.baseUnitConversionFactor;
         }
     }
 
-    /**
-     * Represents Quantity.
-     */
     public static class Quantity {
-        /**
-         * Property value.
-         */
         private final double value;
-        /**
-         * Property unit.
-         */
         private final LengthUnit unit;
 
-        /**
-         * Execution logic for Quantity.
-         */
         public Quantity(double value, LengthUnit unit) {
             this.value = value;
             this.unit = unit;
         }
 
-        /**
-         * Execution logic for equals.
-         */
         @Override
         public boolean equals(Object obj) {
             if (this == obj) return true;
@@ -66,17 +42,11 @@ public class QuantityMeasurementApp {
             ) == 0;
         }
 
-        /**
-         * Execution logic for hashCode.
-         */
         @Override
         public int hashCode() {
             return Objects.hash(unit.toBaseUnit(value));
         }
 
-        /**
-         * Execution logic for toString.
-         */
         @Override
         public String toString() {
             return "Quantity(" + value + ", \"" + unit.name().toLowerCase() + "\")";
