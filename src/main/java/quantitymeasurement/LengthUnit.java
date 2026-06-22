@@ -1,5 +1,8 @@
 package quantitymeasurement;
 
+/**
+ * Represents LengthUnit.
+ */
 public enum LengthUnit implements IMeasurable {
     FEET(12.0),
     INCHES(1.0),
@@ -15,21 +18,33 @@ public enum LengthUnit implements IMeasurable {
         this.baseUnitConversionFactor = baseUnitConversionFactor;
     }
 
+    /**
+     * Execution logic for getConversionFactor.
+     */
     @Override
     public double getConversionFactor() {
         return this.baseUnitConversionFactor;
     }
 
+    /**
+     * Execution logic for convertToBaseUnit.
+     */
     @Override
     public double convertToBaseUnit(double value) {
         return value * this.baseUnitConversionFactor;
     }
 
+    /**
+     * Execution logic for convertFromBaseUnit.
+     */
     @Override
     public double convertFromBaseUnit(double baseValue) {
         return baseValue / this.baseUnitConversionFactor;
     }
 
+    /**
+     * Execution logic for getUnitName.
+     */
     @Override
     public String getUnitName() {
         return this.name().toLowerCase();

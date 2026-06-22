@@ -5,15 +5,24 @@ package quantitymeasurement;
  */
 public class QuantityMeasurementApp {
 
+    /**
+     * Execution logic for demonstrateEquality.
+     */
     public static <U extends IMeasurable> void demonstrateEquality(Quantity<U> q1, Quantity<U> q2) {
         System.out.println(q1 + " equals " + q2 + ": " + q1.equals(q2));
     }
 
+    /**
+     * Execution logic for demonstrateAddition.
+     */
     public static <U extends IMeasurable> void demonstrateAddition(Quantity<U> q1, Quantity<U> q2, U targetUnit) {
         Quantity<U> sum = q1.add(q2, targetUnit);
         System.out.println(q1 + " + " + q2 + " to " + targetUnit.getUnitName() + " = " + sum);
     }
 
+    /**
+     * Execution logic for main.
+     */
     public static void main(String[] args) {
         System.out.println("Welcome to Quantity Measurement App!");
         
@@ -34,5 +43,14 @@ public class QuantityMeasurementApp {
         Quantity<WeightUnit> lb1 = new Quantity<>(1.0, WeightUnit.POUND);
         Quantity<WeightUnit> lb2 = new Quantity<>(1.0, WeightUnit.POUND);
         demonstrateAddition(lb1, lb2, WeightUnit.KILOGRAM);
+
+        System.out.println("\n--- Volume Demonstration (UC11) ---");
+        Quantity<VolumeUnit> l1 = new Quantity<>(1.0, VolumeUnit.LITRE);
+        Quantity<VolumeUnit> ml1 = new Quantity<>(1000.0, VolumeUnit.MILLILITRE);
+        demonstrateEquality(l1, ml1);
+
+        Quantity<VolumeUnit> gal1 = new Quantity<>(1.0, VolumeUnit.GALLON);
+        Quantity<VolumeUnit> l2 = new Quantity<>(3.785, VolumeUnit.LITRE);
+        demonstrateAddition(gal1, l2, VolumeUnit.GALLON);
     }
 }

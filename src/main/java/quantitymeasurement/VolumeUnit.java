@@ -1,19 +1,19 @@
 package quantitymeasurement;
 
 /**
- * Represents WeightUnit.
+ * Represents VolumeUnit.
  */
-public enum WeightUnit implements IMeasurable {
-    KILOGRAM(1.0),
-    GRAM(0.001),
-    POUND(0.453592);
+public enum VolumeUnit implements IMeasurable {
+    LITRE(1.0),
+    MILLILITRE(0.001),
+    GALLON(3.78541);
 
     /**
      * Property baseUnitConversionFactor.
      */
     private final double baseUnitConversionFactor;
 
-    WeightUnit(double baseUnitConversionFactor) {
+    VolumeUnit(double baseUnitConversionFactor) {
         this.baseUnitConversionFactor = baseUnitConversionFactor;
     }
 

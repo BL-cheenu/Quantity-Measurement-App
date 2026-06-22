@@ -1,5 +1,8 @@
 package quantitymeasurement;
 
+/**
+ * Represents IMeasurable.
+ */
 public interface IMeasurable {
     double getConversionFactor();
     double convertToBaseUnit(double value);
