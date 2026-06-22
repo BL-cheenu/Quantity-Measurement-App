@@ -43,25 +43,13 @@ public class QuantityMeasurementApp {
         }
     }
 
-    /**
-     * Represents Inches.
-     */
     public static class Inches {
-        /**
-         * Property value.
-         */
         private final double value;
 
-        /**
-         * Execution logic for Inches.
-         */
         public Inches(double value) {
             this.value = value;
         }
 
-        /**
-         * Execution logic for equals.
-         */
         @Override
         public boolean equals(Object obj) {
             if (this == obj) return true;
@@ -70,18 +58,12 @@ public class QuantityMeasurementApp {
             return Double.compare(inches.value, value) == 0;
         }
 
-        /**
-         * Execution logic for hashCode.
-         */
         @Override
         public int hashCode() {
             return Objects.hash(value);
         }
     }
 
-    /**
-     * Execution logic for main.
-     */
     public static void main(String[] args) {
         System.out.println("Welcome to Quantity Measurement App!");
         
