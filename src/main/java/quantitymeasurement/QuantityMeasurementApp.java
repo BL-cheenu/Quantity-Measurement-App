@@ -1,7 +1,13 @@
 package quantitymeasurement;
 
+/**
+ * Represents QuantityMeasurementApp.
+ */
 public class QuantityMeasurementApp {
 
+    /**
+     * Execution logic for main.
+     */
     public static void main(String[] args) {
         System.out.println("Welcome to Quantity Measurement App!");
         

@@ -1,26 +1,26 @@
 package quantitymeasurement;
 
 /**
- * Represents LengthUnit.
+ * Represents WeightUnit.
  */
-public enum LengthUnit implements Unit {
-    FEET(12.0),
-    INCHES(1.0),
-    YARD(36.0),
-    CM(1.0 / 2.54);
+public enum WeightUnit implements Unit {
+    KILOGRAM(1.0),
+    GRAM(0.001),
+    POUND(0.453592);
 
     /**
      * Property baseUnitConversionFactor.
      */
     private final double baseUnitConversionFactor;
 
-    LengthUnit(double baseUnitConversionFactor) {
+    WeightUnit(double baseUnitConversionFactor) {
         this.baseUnitConversionFactor = baseUnitConversionFactor;
     }
 
     /**
      * Execution logic for convertToBaseUnit.
      */
+    @Override
     public double convertToBaseUnit(double value) {
         return value * this.baseUnitConversionFactor;
     }
@@ -28,6 +28,7 @@ public enum LengthUnit implements Unit {
     /**
      * Execution logic for convertFromBaseUnit.
      */
+    @Override
     public double convertFromBaseUnit(double baseValue) {
         return baseValue / this.baseUnitConversionFactor;
     }
