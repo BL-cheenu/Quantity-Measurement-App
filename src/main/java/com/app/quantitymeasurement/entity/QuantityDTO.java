@@ -1,9 +1,19 @@
 package com.app.quantitymeasurement.entity;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Represents QuantityDTO.
  */
 public class QuantityDTO {
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+    @JsonSubTypes({
+        @JsonSubTypes.Type(value = LengthUnit.class, name = "LengthUnit"),
+        @JsonSubTypes.Type(value = VolumeUnit.class, name = "VolumeUnit"),
+        @JsonSubTypes.Type(value = WeightUnit.class, name = "WeightUnit"),
+        @JsonSubTypes.Type(value = TemperatureUnit.class, name = "TemperatureUnit")
+    })
     /**
      * Represents IMeasurableUnit.
      */

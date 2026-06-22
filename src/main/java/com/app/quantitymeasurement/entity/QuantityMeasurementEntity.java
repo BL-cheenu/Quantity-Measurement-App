@@ -2,9 +2,13 @@ package com.app.quantitymeasurement.entity;
 
 import java.io.Serializable;
 
+import jakarta.persistence.*;
+
 /**
  * Represents QuantityMeasurementEntity.
  */
+@Entity
+@Table(name = "quantity_measurement_history")
 public class QuantityMeasurementEntity implements Serializable {
     /**
      * Property serialVersionUID.
@@ -14,34 +18,50 @@ public class QuantityMeasurementEntity implements Serializable {
     /**
      * Property id.
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     /**
      * Property operand1.
      */
+    @Transient
     private QuantityDTO operand1;
+
     /**
      * Property operand2.
      */
+    @Transient
     private QuantityDTO operand2;
+
     /**
      * Property operationType.
      */
+    @Column(name = "operation_type")
     private String operationType;
+
     /**
      * Property result.
      */
+    @Column(name = "result")
     private String result;
+
     /**
      * Property hasError.
      */
+    @Column(name = "has_error")
     private boolean hasError;
+
     /**
      * Property errorMessage.
      */
+    @Column(name = "error_message")
     private String errorMessage;
+
     /**
      * Property measurementType.
      */
+    @Column(name = "measurement_type")
     private String measurementType;
 
     /**
