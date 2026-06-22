@@ -1,6 +1,9 @@
 package quantitymeasurement;
 
-public enum LengthUnit implements Unit {
+/**
+ * Represents LengthUnit.
+ */
+public enum LengthUnit implements IMeasurable {
     FEET(12.0),
     INCHES(1.0),
     YARD(36.0),
@@ -16,8 +19,17 @@ public enum LengthUnit implements Unit {
     }
 
     /**
+     * Execution logic for getConversionFactor.
+     */
+    @Override
+    public double getConversionFactor() {
+        return this.baseUnitConversionFactor;
+    }
+
+    /**
      * Execution logic for convertToBaseUnit.
      */
+    @Override
     public double convertToBaseUnit(double value) {
         return value * this.baseUnitConversionFactor;
     }
@@ -25,7 +37,16 @@ public enum LengthUnit implements Unit {
     /**
      * Execution logic for convertFromBaseUnit.
      */
+    @Override
     public double convertFromBaseUnit(double baseValue) {
         return baseValue / this.baseUnitConversionFactor;
+    }
+
+    /**
+     * Execution logic for getUnitName.
+     */
+    @Override
+    public String getUnitName() {
+        return this.name().toLowerCase();
     }
 }
