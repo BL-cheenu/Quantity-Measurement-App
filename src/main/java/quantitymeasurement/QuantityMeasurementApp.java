@@ -72,9 +72,6 @@ public class QuantityMeasurementApp {
             return Math.round(convertedValue * 1000.0) / 1000.0;
         }
 
-        /**
-         * Execution logic for add.
-         */
         public Quantity add(Quantity other) {
             if (other == null) {
                 throw new IllegalArgumentException("Quantity to add cannot be null");
@@ -84,9 +81,6 @@ public class QuantityMeasurementApp {
             return new Quantity(Math.round(sumValue * 1000.0) / 1000.0, this.unit);
         }
 
-        /**
-         * Execution logic for equals.
-         */
         @Override
         public boolean equals(Object obj) {
             if (this == obj) return true;
