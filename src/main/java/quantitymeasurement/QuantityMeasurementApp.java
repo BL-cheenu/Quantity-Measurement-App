@@ -20,25 +20,16 @@ public class QuantityMeasurementApp {
         System.out.println(q1 + " + " + q2 + " to " + targetUnit.getUnitName() + " = " + sum);
     }
 
-    /**
-     * Execution logic for demonstrateSubtraction.
-     */
     public static <U extends IMeasurable> void demonstrateSubtraction(Quantity<U> q1, Quantity<U> q2, U targetUnit) {
         Quantity<U> diff = q1.subtract(q2, targetUnit);
         System.out.println(q1 + " - " + q2 + " to " + targetUnit.getUnitName() + " = " + diff);
     }
 
-    /**
-     * Execution logic for demonstrateDivision.
-     */
     public static <U extends IMeasurable> void demonstrateDivision(Quantity<U> q1, Quantity<U> q2) {
         double result = q1.divide(q2);
         System.out.println(q1 + " / " + q2 + " = " + result);
     }
 
-    /**
-     * Execution logic for main.
-     */
     public static void main(String[] args) {
         System.out.println("Welcome to Quantity Measurement App!");
         
