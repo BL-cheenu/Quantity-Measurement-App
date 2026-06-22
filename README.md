@@ -1,12 +1,30 @@
-  - `VolumeUnit` implements `IMeasurable` and supports `LITRE`, `MILLILITRE`, and `GALLON`.
-  - `TemperatureUnit` implements `IMeasurable` and supports `CELSIUS` and `FAHRENHEIT`.
-- **Compile-Time Category Safety**: The `Quantity<U>` class is strictly parameterized. Attempts to mix categories (e.g. `LengthUnit` + `VolumeUnit`) will fail to compile. This replaces error-prone runtime checks.
-- **Centralized & Validated Arithmetic Operations (DRY)**: 
-  - `add(...)`, `subtract(...)`, `divide(...)`: Generic arithmetic methods wrapping `performOperation`.
-  - Under the hood, these methods delegate to a private helper `performOperation`, which validates whether the `IMeasurable` category supports arithmetic (via `validateOperationSupport`).
-  - Attempts to perform arithmetic on Temperature objects safely fail with an `UnsupportedOperationException`.
-- **Robust Validation**: Rejects invalid states like `null` units, `NaN` values, and `Infinite` values via `IllegalArgumentException`. Division by zero explicitly throws an exception.
-- **Comprehensive Testing**: JUnit 5 tests utilizing generic parameters to verify equality, conversions, arithmetic, unsupported constraints, and isolated category tests for Length, Weight, Volume, and Temperature.
+# Quantity Measurement App (UC1 - UC16)
+
+The Quantity Measurement App is a robust, N-Tier Java application designed to cleanly and safely measure, compare, and perform arithmetic operations across multiple distinct quantities. It enforces rigid domain boundaries for Length, Weight, Volume, and Temperature, while allowing flexible conversions within a domain.
+
+## Features
+
+### UC1 - UC14: Core Domain Logic & Units
+- **Length**: Supports Inches, Feet, Yards, and Centimeters.
+- **Weight/Mass**: Supports Grams, Kilograms, and Tonnes.
+- **Volume**: Supports Liters, Milliliters, and Gallons.
+- **Temperature**: Supports Celsius and Fahrenheit (including complex formula-based bidirectional conversion).
+- **Arithmetic Operations**: Addition, Subtraction, and Division are supported for compatible units.
+- **Operational Safety**: Compile-time category safety prevents adding Length to Weight. Runtime validations prevent arithmetic on Temperature objects (which throws `UnsupportedOperationException`).
+
+### UC15: N-Tier Architecture Refactoring
+The application underwent a major structural refactor to adopt a professional, layered architecture:
+- **Controller Layer (`QuantityMeasurementController`)**: Exposes methods for interaction and orchestration.
+- **Service Layer (`IQuantityMeasurementService`)**: Implements business rules, cross-category validations, and mathematical delegations.
+- **Repository Layer (`IQuantityMeasurementRepository`)**: Abstraction for data persistence.
+- **Entity/Model Layer (`QuantityMeasurementEntity`)**: Dedicated POJOs and DTOs to encapsulate the state of a measurement operation.
+
+### UC16: Database Integration & Maven Standardization
+The application was fully modernized to industrial standards:
+- **Standard Maven Structure**: All code relocated to `src/main/java/com/app/quantitymeasurement` and `src/test/java...`.
+- **H2 Database Integration**: Implemented `QuantityMeasurementDatabaseRepository` utilizing a Singleton `ConnectionPool` to persist all operation history (operands, units, results, errors) using standard JDBC `PreparedStatement`s.
+- **Application Configuration**: Driven by `application.properties`, allowing dynamic swapping between `CACHE` and `DATABASE` persistence modes.
+- **SLF4J Logging**: Replaced raw `System.out.println` with robust, leveled logging.
 
 1. **Controller Layer (`QuantityMeasurementController.java`)**: 
    - Acts as the presentation entry-point.
@@ -16,27 +34,32 @@
    - Encapsulates core business logic and logic-flow operations.
    - Explicitly ensures that arithmetic or comparisons are only executed after validating that the two distinct units belong to compatible measurement domains (e.g., Length and Length).
 
-3. **Repository Layer (`IQuantityMeasurementRepository` & `QuantityMeasurementCacheRepository`)**:
-   - Completely decouples the data access layer.
-   - Currently implemented as an in-memory cache repository (`List<QuantityMeasurementEntity> cache`) allowing for seamless replacement with a persistent DB in the future.
-
-4. **Entity/Model Layer**:
-   - **`QuantityDTO`**: A robust Data Transfer Object representing the value and unit of a measurement being passed from the frontend/Controller.
-   - **`QuantityModel`**: The core logic model containing the generic type validation rules, conversions, and math logic.
-   - **`QuantityMeasurementEntity`**: A specialized POJO designed to store the operation history and result states of every calculation securely.
-
-5. **Testing & Verification**:
-   - Re-aligned the existing JUnit 5 test suite to run against the new architecture cleanly. 
-   - The refactored N-Tier architecture continues to securely pass all 67 Unit Tests without breaking previously established constraints.
-
-## Running the Code
-
-**Build and Run Tests:**
+### Running Tests
+To run the full JUnit 5 and Mockito suite (74+ Unit and Integration Tests):
 ```bash
 mvn clean test
 ```
 
-**Run the Application:**
+### Building the Application
+To compile and package the application into a Fat JAR using the Maven Shade plugin:
 ```bash
-mvn exec:java -Dexec.mainClass="quantitymeasurement.QuantityMeasurementApp"
+mvn clean package
 ```
+
+### Running the Application
+To run the main demonstration through Maven:
+```bash
+mvn exec:java -Dexec.mainClass="com.app.quantitymeasurement.QuantityMeasurementApp"
+```
+
+## Architectural Highlights
+
+### Database Utilities
+- **`ConnectionPool.java`**: Custom implementation managing a fixed number of JDBC connections, including timeout logic, validation checking, and graceful closure.
+- **`schema.sql`**: Auto-creates the `quantity_measurement_history` table at runtime.
+
+### Logging
+All operational interactions, database saves, exceptions, and app states are logged cleanly using SLF4J and Logback.
+
+### Generic Safety
+The `Quantity<U extends IMeasurable>` class ensures that mathematical evaluations are evaluated securely without mixing logical domains at the repository or service level.
